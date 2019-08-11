@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config('./env');
 var keys = require("./keys.js");
 const axios = require("axios");
 const fs = require("fs");
@@ -10,7 +10,7 @@ var LIRI = function () {
     var divider = "\n------------------------------------------------------------\n\n";
 
     this.findConcert = function (findconcert) {
-        // Some for concerts with bandsintown API
+        // Search for concerts with bandsintown API
         var URL = `https://rest.bandsintown.com/artists/${findconcert}/events?app_id=codingbootcamp`
 
         axios.get(URL).then(function (response) {
@@ -33,9 +33,10 @@ var LIRI = function () {
 
     this.findSong = function (findsong) {
         console.log(findsong)
+
         var spotify = new Spotify({
-            id: SPOTIFY_ID,
-            secret: SPOTIFY_SECRET
+            id: '9fc66aaa01a943f3954c5fc5bbab8748',
+            secret: 'acaf94eb4c0e4acaa36efe6296b46810'
         });
 
         spotify.search({
@@ -45,18 +46,40 @@ var LIRI = function () {
             if (err) {
                 return console.log('Error occurred: ' + err);
             }
-            console.log(data);
+            var musicData = data
+            console.log(musicData);
         });
     };
 
-    this.findMovie = function () {
-        // Search for movie with OMDB API
+    this.findMovie = function (findmovie) {
+        // Search for movies with OMDB API
+        var URL = `https://www.omdbapi.com/?t=${findmovie}&y=&plot=short&apikey=trilogy`
+
+        axios.get(URL).then(function (response) {
+            var jsonData = response.data;
+
+            var movieData = [
+                `Movie Title: ${jsonData.Title}`,
+                `Release Year: ${jsonData.Year}`,
+                `IMDB Rating: ${jsonData.imdbRating}`,
+                `Rotten Tomatoes Rating: ${jsonData.Ratings[1].Value}`,
+                // `Rotten Tomatoes Rating: ${rottenTomatoes}`,
+                `Country Produced: ${jsonData.Country}`,
+                `Language: ${jsonData.Language}`,
+                `Actors/Actresses: ${jsonData.Actors}`,
+                `Plot: ${jsonData.Plot}`
+            ].join("\n\n");
+
+            fs.appendFile("log.txt", movieData + divider, function (err) {
+                if (err) throw err;
+                console.log(movieData);
+            });
+        });
     };
 
     this.findDefault = function () {
-        // Default search
-    }
 
-}; // End of LIRI functions
-
+    };
+    // End of LIRI functions
+}
 module.exports = LIRI;

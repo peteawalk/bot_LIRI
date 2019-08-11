@@ -1,6 +1,4 @@
 var LIRI = require("./liriwork");
-var keys = require("./keys.js");
-require("dotenv").config();
 
 // Create new LIRI Object
 var liri = new LIRI();
