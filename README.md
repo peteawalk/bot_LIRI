@@ -1,33 +1,15 @@
 # bot_LIRI
 ### Language Interpretation and Recognition Interface
-This is a node.JS tool that must be run via command line.
-e.g. node 
+LIRI bot is a SIRI knockoff. You can search for concerts, movie details and track details. This is a node.JS tool that must be run via command line.
 
-
-1. Clearly state the problem the app is trying to solve (i.e. what is it doing and why)
-
-2. Give a high-level overview of how the app is organized
- You will need to create your own .env in the relative path of all the files. Similar to this:
- # Spotify API keys
-
+## Configuration/Install
+You will need to create your own .env in the relative path of all the files. Similar to this:
+#Spotify API keys
 SPOTIFY_ID=your-spotify-id
 SPOTIFY_SECRET=your-spotify-secret
 
-3. Give start-to-finish instructions on how to run the app
-
+## How to run:
 node liri.js concert-this <artist/band name here>
+![](LIRI_concert-this_functionality.gif)
 
-This will search the Bands in Town Artist Events API ("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp") for an artist and render the following information about each event to the terminal:
-
-Name of the venue
-Venue location
-Date of the Event (use moment to format this as "MM/DD/YYYY")
-
-
-4. Include screenshots, gifs or videos of the app functioning
-
-5. Contain a link to a deployed version of the app
-
-6. Clearly list the technologies used in the app
-
-7. State your role in the app development
+Technologies used: Pure Javascript with the help of Axios, Moment.JS, Spotify API, OMDB API and Bands in Town API.
