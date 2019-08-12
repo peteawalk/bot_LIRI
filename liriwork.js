@@ -1,8 +1,8 @@
-require("dotenv").config('./env');
+require("dotenv").config();
 var keys = require("./keys.js");
 const axios = require("axios");
 const fs = require("fs");
-var moment = require("moment");
+const moment = require("moment");
 var Spotify = require("node-spotify-api");
 var spotify = new Spotify(keys.spotify);
 
@@ -35,8 +35,8 @@ var LIRI = function () {
         console.log(findsong)
 
         var spotify = new Spotify({
-            id: '9fc66aaa01a943f3954c5fc5bbab8748',
-            secret: 'acaf94eb4c0e4acaa36efe6296b46810'
+            id: process.env.SPOTIFY_ID,
+            secret: process.env.SPOTIFY_SECRET
         });
 
         spotify.search({
