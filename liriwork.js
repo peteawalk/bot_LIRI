@@ -4,7 +4,6 @@ const axios = require("axios");
 const fs = require("fs");
 const moment = require("moment");
 var Spotify = require("node-spotify-api");
-var spotify = new Spotify(keys.spotify);
 
 var LIRI = function () {
     var divider = "\n------------------------------------------------------------\n\n";
@@ -32,16 +31,20 @@ var LIRI = function () {
     };
 
     this.findSong = function (findsong) {
-        console.log(findsong)
+
+        // var spotify = new Spotify(keys.spotify);
 
         var spotify = new Spotify({
             id: process.env.SPOTIFY_ID,
             secret: process.env.SPOTIFY_SECRET
         });
 
+        console.log(spotify);
+
         spotify.search({
             type: 'track',
-            query: findsong
+            query: findsong,
+            limit: 5
         }, function (err, data) {
             if (err) {
                 return console.log('Error occurred: ' + err);
