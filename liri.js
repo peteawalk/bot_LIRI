@@ -1,4 +1,5 @@
 var LIRI = require("./liriwork");
+const fs = require("fs");
 
 // Create new LIRI Object
 var liri = new LIRI();
@@ -18,22 +19,23 @@ if (!command) {
 };
 
 if (!queryString) {
-    queryString = "I Want it That Way";
+    queryString = "The Sign ace of base";
 };
 
-
 if (command === 'concert-this') {
-    console.log("Searching for concert featuring: " + queryString);
+    console.log(`Searching for concert featuring: ${queryString}`);
     liri.findConcert(queryString);
 } else if (command === 'spotify-this-song') {
-    console.log("Searching for song: " + queryString);
+    console.log(`Searching for song: ${queryString}`);
     liri.findSong(queryString);
 } else if (command === 'movie-this') {
-    console.log("Searching for movie: " + queryString);
+    console.log(`Searching for movie: ${queryString}`);
     liri.findMovie(queryString);
 } else if (command === 'do-what-it-says') {
-    console.log("Searching for default");
-    liri.findDefault(queryString);
+    liri.findSong(fs.readFile("./random.txt", (err, data) => {
+        if (err) throw err;
+        console.log(data);
+    })).slice().join(" ");
 } else {
     console.log("Enter a command and query!\n e.g. node liri concert-this radiohead");
 };

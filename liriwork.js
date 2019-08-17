@@ -30,29 +30,34 @@ var LIRI = function () {
         });
     };
 
+
     this.findSong = function (findsong) {
-
-        // var spotify = new Spotify(keys.spotify);
-
-        var spotify = new Spotify({
-            id: process.env.SPOTIFY_ID,
-            secret: process.env.SPOTIFY_SECRET
-        });
-
-        console.log(spotify);
+        var spotify = new Spotify(keys.spotify);
 
         spotify.search({
-            type: 'track',
-            query: findsong,
-            limit: 5
-        }, function (err, data) {
-            if (err) {
-                return console.log('Error occurred: ' + err);
-            }
-            var musicData = data
-            console.log(musicData);
-        });
-    };
+                type: 'track',
+                query: findsong,
+                limit: 5
+            },
+            function (err, data) {
+                if (err) {
+                    return console.log('Error occurred: ' + err);
+                }
+                var jsonData = data;
+                var musicData = [
+                    `Artist: ${jsonData.tracks.items[0].artists[0].name}`,
+                    `Song: ${data.tracks.items[0].name}`,
+                    `Preview: ${data.tracks.items[3].preview_url}`,
+                    `Album: ${data.tracks.items[0].album.name}`,
+                ].join("\n\n");
+
+                fs.appendFile("log.txt", musicData + divider, function (err) {
+                    if (err) throw err;
+                    console.log(musicData);
+                });
+            }); // End of spotify.search
+    } // End of findSong Constructor
+
 
     this.findMovie = function (findmovie) {
         // Search for movies with OMDB API
@@ -66,7 +71,6 @@ var LIRI = function () {
                 `Release Year: ${jsonData.Year}`,
                 `IMDB Rating: ${jsonData.imdbRating}`,
                 `Rotten Tomatoes Rating: ${jsonData.Ratings[1].Value}`,
-                // `Rotten Tomatoes Rating: ${rottenTomatoes}`,
                 `Country Produced: ${jsonData.Country}`,
                 `Language: ${jsonData.Language}`,
                 `Actors/Actresses: ${jsonData.Actors}`,
@@ -81,8 +85,10 @@ var LIRI = function () {
     };
 
     this.findDefault = function () {
-
+        console.log(fs.readFile("./random.txt"));
+        this.findSong(fs.readFile("./random.txt"));
     };
     // End of LIRI functions
+
 }
 module.exports = LIRI;
