@@ -1,0 +1,17 @@
+Movie Title: Inception
+
+Release Year: 2010
+
+IMDB Rating: 8.8
+
+Rotten Tomatoes Rating: 87%
+
+Country Produced: USA, UK
+
+Language: English, Japanese, French
+
+Actors/Actresses: Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page, Tom Hardy
+
+Plot: A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.
+------------------------------------------------------------
+
